@@ -5,8 +5,12 @@ import FormError from "./FormError";
 import AvatarPopup from "./AvatarPopup";
 import Pagination from "./Pagination";
 import CartPopup from "./CartPopup";
+import DashboardHeader from "./DashboardHeader";
+import DashboardSidebar from "./DashboardSidebar";
 
 export {
+  DashboardHeader,
+  DashboardSidebar,
   LoadingIndicator,
   Navbar,
   RedAsterisk,

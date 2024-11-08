@@ -10,4 +10,16 @@ const getParamPath = (path, param) => {
   return `${!isAbsolute ? "/" : ""}${segments.join("/")}`;
 };
 
-export { capitalizeFirstLetter, getParamPath };
+const getGreeting = () => {
+  const hour = new Date().getHours();
+  switch (true) {
+    case hour < 12:
+      return "Good Morning";
+    case hour < 18:
+      return "Good Afternoon";
+    default:
+      return "Good Evening";
+  }
+};
+
+export { capitalizeFirstLetter, getParamPath, getGreeting };
