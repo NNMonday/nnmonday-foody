@@ -7,12 +7,14 @@ import React, {
 } from "react";
 import { AxiosInstance } from "../configs";
 import { toastSuccess } from "../utils/toastify";
+import { useAuth } from "./auth.context";
 
 const CartContext = createContext();
 export const useCart = () => {
   return useContext(CartContext);
 };
 export default function CartProvider({ children }) {
+  const { currentUser } = useAuth();
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,6 +22,8 @@ export default function CartProvider({ children }) {
     try {
       setLoading(true);
       const res = await AxiosInstance.get("/api/customers/cart");
+      console.log(res.data);
+
       setCart(res.data.data);
     } catch (error) {
     } finally {
@@ -29,9 +33,16 @@ export default function CartProvider({ children }) {
 
   const updateCart = useCallback(async (newCart) => {
     try {
+      const updatedCart = newCart.map((i) => ({
+        dish_id: i.dish_id,
+        quantity: i.quantity,
+      }));
+      console.log(updatedCart);
+
       const res = await AxiosInstance.post("/api/customers/cart", {
-        newCart,
+        newCart: updatedCart,
       });
+
       console.log(res.data);
 
       toastSuccess(res.data.message);
@@ -41,7 +52,7 @@ export default function CartProvider({ children }) {
 
   useEffect(() => {
     getCart();
-  }, [getCart]);
+  }, [getCart, currentUser]);
 
   const value = {
     cart,

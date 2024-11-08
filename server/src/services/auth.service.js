@@ -67,7 +67,9 @@ const register = async ({
     hashedPassword: hashedPassword,
   });
 
-  if ((await RoleRepository.findOneById(role).name) === "restaurant") {
+  console.log((await RoleRepository.findOneById(role)).name);
+
+  if ((await RoleRepository.findOneById(role)).name === "restaurant") {
     await RestaurantRepository.create(_id);
   } else {
     await CustomerRepository.create(_id);

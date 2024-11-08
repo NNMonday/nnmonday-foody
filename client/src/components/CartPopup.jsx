@@ -36,6 +36,15 @@ const CartPopup = ({ onClose }) => {
     updateCart(updatedCart);
   };
 
+  const handleQuantityChange = (item, delta) => {
+    const updatedCart = cart.map((cartItem) =>
+      cartItem.dish_id._id === item.dish_id._id
+        ? { ...cartItem, quantity: Math.max(1, cartItem.quantity + delta) }
+        : cartItem
+    );
+    updateCart(updatedCart);
+  };
+
   const totalAmount = cart
     .reduce((total, item) => total + item.dish_id.price * item.quantity, 0)
     .toFixed(2);
@@ -59,9 +68,22 @@ const CartPopup = ({ onClose }) => {
               />
               <div className="flex-grow">
                 <h3 className="font-semibold">{item.dish_id.name}</h3>
-                <p>
-                  {item.quantity} x ${item.dish_id.price}
-                </p>
+                <p>${item.dish_id.price} each</p>
+                <div className="flex items-center">
+                  <button
+                    onClick={() => handleQuantityChange(item, -1)}
+                    className="px-2 py-1 bg-gray-200 rounded-full text-gray-700"
+                  >
+                    -
+                  </button>
+                  <span className="px-3">{item.quantity}</span>
+                  <button
+                    onClick={() => handleQuantityChange(item, 1)}
+                    className="px-2 py-1 bg-gray-200 rounded-full text-gray-700"
+                  >
+                    +
+                  </button>
+                </div>
               </div>
               <button
                 onClick={() => handleRemoveItem(item)}

@@ -21,59 +21,50 @@ const getCart = async (_id) => {
 
 const updateCart = async (_id, newCart) => {
   try {
-    const { cart: currentCart } = await CustomerRepository.findCartById(_id);
+    const { cart: currentCart = [] } = await CustomerRepository.findCartById(
+      _id
+    );
 
     let existingRestaurantId = null;
     if (currentCart.length > 0) {
-      const currentDish = await DishRepository.findOneById(
+      const firstDish = await DishRepository.findOneById(
         currentCart[0].dish_id
       );
-      if (!currentDish) {
-        throw httpErrors.NotFound(`Dish with ID ${dish_id} not found`);
-      }
-      existingRestaurantId = currentDish.restaurant_id.toString();
-    }
-
-    const newItem = newCart[newCart.length - 1];
-    const { dish_id } = newItem;
-
-    const existingItem = currentCart.find(
-      (cartItem) => cartItem.dish_id._id.toString() === dish_id.toString()
-    );
-
-    if (!existingItem) {
-      const dish = await DishRepository.findOneById(dish_id);
-      if (!dish) {
-        throw httpErrors.NotFound(`Dish with ID ${dish_id} not found`);
-      }
-
-      const dishRestaurantId = dish.restaurant_id.toString();
-      if (existingRestaurantId && dishRestaurantId !== existingRestaurantId) {
-        throw httpErrors.BadRequest(
-          `All items in the cart must be from the same restaurant. '${dish.name}' could not be added.`
+      if (!firstDish) {
+        throw httpErrors.NotFound(
+          `Dish with ID ${currentCart[0].dish_id} not found`
         );
       }
-
-      if (!existingRestaurantId) {
-        existingRestaurantId = dishRestaurantId;
-      }
+      existingRestaurantId = firstDish.restaurant_id.toString();
     }
 
-    let actionMessage;
-    if (existingItem) {
-      actionMessage = `1 more ${existingItem.dish_id.name} has been added to your cart!`;
-    } else {
-      const dish = await DishRepository.findOneById(dish_id);
-      if (!dish) {
-        throw httpErrors.NotFound(`Dish with ID ${dish_id} not found`);
+    for (const newItem of newCart) {
+      const isNewItem = !currentCart.some(
+        (item) => item.dish_id.toString() === newItem.dish_id.toString()
+      );
+      if (isNewItem) {
+        const newDish = await DishRepository.findOneById(newItem.dish_id);
+        if (!newDish) {
+          throw httpErrors.NotFound(
+            `Dish with ID ${newItem.dish_id} not found`
+          );
+        }
+        const newDishRestaurantId = newDish.restaurant_id.toString();
+        if (
+          existingRestaurantId &&
+          newDishRestaurantId !== existingRestaurantId
+        ) {
+          throw httpErrors.BadRequest(
+            `All items in the cart must be from the same restaurant. '${newDish.name}' could not be added.`
+          );
+        }
       }
-      actionMessage = `${dish.name} has been added to your cart!`;
     }
 
     const data = await CustomerRepository.updateCart(_id, newCart);
 
     return {
-      message: actionMessage,
+      message: "Your cart has been updated!",
       data,
     };
   } catch (error) {

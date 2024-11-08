@@ -81,10 +81,9 @@ const Dish = ({ dish, isGridView }) => {
                   newCart[index].quantity += 1;
                   await updateCart(newCart);
                 } else {
-                  newCart.push({ dish_id: { ...dish }, quantity: 1 });
+                  newCart.push({ dish_id: dish, quantity: 1 });
                   await updateCart(newCart);
                 }
-                console.log(newCart);
               } catch (error) {}
             }}
           >
@@ -150,8 +149,6 @@ const Menu = () => {
           totalPageCount,
           currentPage: responsePage,
         } = dishesRes.data.data;
-
-        console.log(items);
 
         setDishes(items);
         setTotalPages(totalPageCount);

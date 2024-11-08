@@ -20,9 +20,9 @@ const navOptions = [paths.homepage, paths.menu, paths.restaurants];
 
 export default function Navbar() {
   const { currentUser } = useAuth();
-  const { cart } = useCart(); // Get cart items from the context
+  const { cart } = useCart();
   const [openPopup, setOpenPopup] = useState(false);
-  const [openCart, setOpenCart] = useState(false); // State for cart pop-up
+  const [openCart, setOpenCart] = useState(false);
   const popupRef = useRef(null);
 
   useEffect(() => {
@@ -52,22 +52,24 @@ export default function Navbar() {
       <nav>
         {currentUser ? (
           <div className="flex gap-x-5 items-center">
-            <div
-              onMouseEnter={() => setOpenCart(true)}
-              onMouseLeave={() => setOpenCart(false)}
-              className="relative cursor-pointer"
-            >
-              <Cart />
-              {openCart && (
-                <CartPopup
-                  cartItems={cart}
-                  onClose={() => setOpenCart(false)}
-                />
-              )}
-              <div className="absolute left-5 bottom-4 px-2 py-0.5 bg-primary text-white rounded-lg text-sm">
-                {cart.length || 0}
+            {currentUser.role.name === "customer" && (
+              <div
+                onMouseEnter={() => setOpenCart(true)}
+                onMouseLeave={() => setOpenCart(false)}
+                className="relative cursor-pointer"
+              >
+                <Cart />
+                {openCart && (
+                  <CartPopup
+                    cartItems={cart}
+                    onClose={() => setOpenCart(false)}
+                  />
+                )}
+                <div className="absolute left-5 bottom-4 px-2 py-0.5 bg-primary text-white rounded-lg text-sm">
+                  {cart.length || 0}
+                </div>
               </div>
-            </div>
+            )}
             <div className="relative" onClick={() => setOpenPopup(true)}>
               <img
                 className="bg-primary rounded-full p-1 mr-2 cursor-pointer"
