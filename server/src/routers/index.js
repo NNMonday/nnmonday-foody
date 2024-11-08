@@ -7,6 +7,7 @@ const CustomerRouter = require("./customer.router");
 const OrderRouter = require("./order.router");
 const AddressRouter = require("./address.router");
 const FileRouter = require("./file.router");
+const UserRouter = require("./User.router");
 
 module.exports = {
   AddressRouter,
@@ -18,4 +19,5 @@ module.exports = {
   CustomerRouter,
   OrderRouter,
   FileRouter,
+  UserRouter,
 };

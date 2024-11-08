@@ -18,6 +18,7 @@ const {
   OrderRouter,
   AddressRouter,
   FileRouter,
+  UserRouter
 } = require("./routers");
 
 const app = express();
@@ -34,6 +35,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/files", FileRouter);
+app.use("/api/user", UserRouter);
 app.use("/api/auth", AuthRouter);
 app.use("/api/roles", RoleRouter);
 app.use("/api/category-dishes", CategoryDishRouter);
