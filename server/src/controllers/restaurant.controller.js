@@ -46,8 +46,21 @@ const findById = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const result = await RestaurantService.getAll();
+    res.status(200).json({
+      message: "Find all restaurants successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getMostPopular,
   getTotal,
   findById,
+  getAll,
 };

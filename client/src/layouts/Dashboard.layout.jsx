@@ -4,7 +4,7 @@ import { DashboardHeader, DashboardSidebar } from "../components";
 import PrivateRoute from "../routes/PrivateRoute";
 import { paths } from "../utils/magic";
 import { useAuth } from "../contexts/auth.context";
-import { Dashboard, Dish, Document,User,File } from "../assets/SvgIcons";
+import { Dashboard, Dish, Document, User, File } from "../assets/SvgIcons";
 
 const sidebarOptions = () => {
   const { currentUser } = useAuth();
@@ -17,9 +17,6 @@ const sidebarOptions = () => {
   if (currentUser.role.name === "admin") {
     const addition = [
       { ...paths.adminUserList, icon: <User /> },
-      { ...paths.adminUserDetail, icon: <User /> },
-      { ...paths.adminMenu, icon: <Document /> },
-      { ...paths.adminDishDetail, icon: <File /> },
       { ...paths.adminOrderList, icon: <Document /> },
     ];
     result.push(...addition);

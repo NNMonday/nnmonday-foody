@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { AxiosInstance } from "../configs";
-import { toastSuccess } from "../utils/toastify";
+import { toastError, toastSuccess } from "../utils/toastify";
 import { useAuth } from "./auth.context";
 
 const CartContext = createContext();
@@ -43,11 +43,15 @@ export default function CartProvider({ children }) {
 
       newCart.length !== 0 && toastSuccess("Cart updated successfully");
       setCart(res.data.data);
-    } catch (error) {}
+    } catch (error) {
+      toastError(error.response.data.message);
+    }
   }, []);
 
   useEffect(() => {
-    getCart();
+    if (currentUser?.role.name === "customer") {
+      getCart();
+    }
   }, [getCart, currentUser]);
 
   const value = {

@@ -13,7 +13,6 @@ const DashboardSidebar = ({ sidebarOptions }) => {
       <div className="w-full">
         <Link to={paths.homepage.url} className="flex items-center mb-8 pl-3">
           <img src={logo} alt="logo" width={40} height={40} />
-          <span className="ml-2 font-medium text-2xl">OJTEDU</span>
         </Link>
         {sidebarOptions?.map((option, i) => (
           <NavLink

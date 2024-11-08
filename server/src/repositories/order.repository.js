@@ -41,9 +41,11 @@ async function getListOrder() {
     .populate("address.city_id") // Populates city information
     .populate("address.district_id") // Populates district information
     .populate("address.ward_id");
+
   const ordersWithCustomerName = await Promise.all(
     listOrder.map(async (order) => {
-      const customer = await User.findById(order.customer_id.user_id); // Retrieve only the name field
+      const customer = await User.findById(order.customer_id.user_id);
+
       return {
         ...order.toObject(),
         customer,

@@ -84,6 +84,13 @@ const findByUserId = async (user_id) => {
   return await Restaurant.findOne({ user_id }).exec();
 };
 
+const getAll = async () => {
+  return await Restaurant.find()
+    .populate("user_id")
+    .populate("address.city_id address.district_id address.ward_id")
+    .exec();
+};
+
 module.exports = {
   create,
   getMostPopular,
@@ -91,4 +98,5 @@ module.exports = {
   findByLocation,
   findById,
   findByUserId,
+  getAll,
 };
