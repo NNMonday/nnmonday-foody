@@ -4,17 +4,24 @@ import { DashboardHeader, DashboardSidebar } from "../components";
 import PrivateRoute from "../routes/PrivateRoute";
 import { paths } from "../utils/magic";
 import { useAuth } from "../contexts/auth.context";
-import { Dashboard } from "../assets/SvgIcons";
+import { Dashboard, Dish, Document } from "../assets/SvgIcons";
 
 const sidebarOptions = () => {
   const { currentUser } = useAuth();
-
-  return [
+  const result = [
     {
       ...paths[`${currentUser.role.name}Dashboard`],
       icon: <Dashboard />,
     },
   ];
+  if (currentUser.role.name === "restaurant") {
+    const addition = [
+      { ...paths.restaurantMenu, icon: <Document /> },
+      { ...paths.restaurantOrderList, icon: <Dish /> },
+    ];
+    result.push(...addition);
+  }
+  return result;
 };
 
 export default function DashboardLayout() {
