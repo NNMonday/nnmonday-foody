@@ -353,7 +353,7 @@ const Menu = () => {
           </div>
         ) : (
           <div
-            className={`grid ${isGridView ? "grid-cols-4 gap-4" : "space-y-4"}`}
+            className={`grid ${isGridView ? "grid-cols-3 gap-4" : "space-y-4"}`}
           >
             {dishes.length > 0 ? (
               dishes.map((dish) => (

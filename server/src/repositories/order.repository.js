@@ -25,7 +25,12 @@ const create = async ({
   return await newOrder.save();
 };
 
+const getByRestaurantId = async (restaurant_id) => {
+  return await Order.find({ restaurant_id }).populate("dishes.dish_id").exec();
+};
+
 module.exports = {
   getTotalDelivered,
   create,
+  getByRestaurantId,
 };

@@ -32,7 +32,21 @@ const create = async (req, res, next) => {
   }
 };
 
+const get = async (req, res, next) => {
+  try {
+    const { _id } = req.decodedToken;
+    const orders = await OrderService.get(_id);
+    res.status(200).json({
+      message: "Find orders successfully",
+      data: orders,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getTotalDelivered,
   create,
+  get,
 };

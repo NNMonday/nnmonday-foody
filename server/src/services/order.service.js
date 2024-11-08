@@ -1,4 +1,8 @@
-const { OrderRepository, CustomerRepository } = require("../repositories");
+const {
+  OrderRepository,
+  CustomerRepository,
+  RestaurantRepository,
+} = require("../repositories");
 
 const getTotalDelivered = async () => {
   return await OrderRepository.getTotalDelivered();
@@ -15,7 +19,16 @@ const create = async ({ address, dishes, user_id, restaurant_id, note }) => {
   });
 };
 
+const get = async (user_id) => {
+  const { _id: restaurant_id } = await RestaurantRepository.findByUserId(
+    user_id
+  );
+  const orders = await OrderRepository.getByRestaurantId(restaurant_id);
+  return orders;
+};
+
 module.exports = {
   getTotalDelivered,
   create,
+  get,
 };

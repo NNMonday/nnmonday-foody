@@ -80,10 +80,15 @@ const findById = async (id) => {
   return await Restaurant.findById(id).populate("user_id").exec();
 };
 
+const findByUserId = async (user_id) => {
+  return await Restaurant.findOne({ user_id }).exec();
+};
+
 module.exports = {
   create,
   getMostPopular,
   getTotal,
   findByLocation,
   findById,
+  findByUserId,
 };
