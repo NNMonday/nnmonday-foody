@@ -18,6 +18,9 @@ const create = async ({ address, dishes, user_id, restaurant_id, note }) => {
     note,
   });
 };
+const getListOrder = async () => {
+  return await OrderRepository.getListOrder();
+};
 
 const get = async (user_id) => {
   const { _id: restaurant_id } = await RestaurantRepository.findByUserId(
@@ -28,6 +31,7 @@ const get = async (user_id) => {
 };
 
 module.exports = {
+  getListOrder,
   getTotalDelivered,
   create,
   get,

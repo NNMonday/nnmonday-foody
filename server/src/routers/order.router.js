@@ -4,6 +4,7 @@ const { AuthMiddleware, RoleMiddleware } = require("../middlewares");
 const OrderRouter = express.Router();
 
 OrderRouter.get("/total", OrderController.getTotalDelivered);
+OrderRouter.get("/list", OrderController.getListOrder);
 OrderRouter.post("/", AuthMiddleware.verifyToken, OrderController.create);
 OrderRouter.get(
   "/",
