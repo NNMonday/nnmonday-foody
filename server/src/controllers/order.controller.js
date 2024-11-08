@@ -31,8 +31,20 @@ const create = async (req, res, next) => {
     next(error);
   }
 };
+const getListOrder = async (req, res, next) => {
+  try {
+    const listOrder = await OrderService.getListOrder();
+    res.status(200).json({
+      message: "List Order",
+      data: listOrder,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
+  getListOrder,
   getTotalDelivered,
   create,
 };

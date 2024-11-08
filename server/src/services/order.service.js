@@ -14,8 +14,12 @@ const create = async ({ address, dishes, user_id, restaurant_id, note }) => {
     note,
   });
 };
+const getListOrder = async () => {
+  return await OrderRepository.getListOrder();
+};
 
 module.exports = {
+  getListOrder,
   getTotalDelivered,
   create,
 };
