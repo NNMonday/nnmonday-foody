@@ -21,6 +21,10 @@ const sidebarOptions = () => {
     ];
     result.push(...addition);
   }
+  if (currentUser.role.name === "customer") {
+    const addition = [{ ...paths.customerOrderList, icon: <Dish /> }];
+    result.push(...addition);
+  }
   return result;
 };
 

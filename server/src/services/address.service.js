@@ -2,6 +2,7 @@ const {
   CityRepository,
   DistrictRepository,
   WardRepository,
+  CustomerRepository,
 } = require("../repositories");
 
 const find = async (cityId, districId) => {
@@ -20,6 +21,12 @@ const find = async (cityId, districId) => {
   return result;
 };
 
+const findByUserId = async (userId) => {
+  const addresses = await CustomerRepository.findAllAddressByUserId(userId);
+  return addresses;
+};
+
 module.exports = {
   find,
+  findByUserId,
 };

@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { useCart } from "../contexts/cart.context";
+import { Link } from "react-router-dom";
+import { paths } from "../utils/magic";
 
 const CartPopup = ({ onClose }) => {
   const popupRef = useRef(null);
-  const { cart, updateCart } = useCart();
+  const { cart = [], updateCart } = useCart();
 
   useEffect(() => {
     const handleMouseEnter = () => {
@@ -93,7 +95,15 @@ const CartPopup = ({ onClose }) => {
               </button>
             </div>
           ))}
-          <div className="font-bold mt-4">Total: ${totalAmount}</div>
+          <div className="flex justify-between items-center">
+            <div className="font-bold">Total: ${totalAmount}</div>
+            <Link
+              to={paths.customer.url + "/" + paths.customerCreateOrder.url}
+              className="rounded-md border bg-primary flex items-center py-1 px-2 text-white"
+            >
+              Checkout
+            </Link>
+          </div>
         </>
       )}
     </div>

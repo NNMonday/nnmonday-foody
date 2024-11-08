@@ -53,6 +53,7 @@ const paths = {
   //Customer Routes
   customer: { name: "Customer", url: "/customer", isWrapper: true },
   customerDashboard: { name: "Dashboard", url: "dashboard" },
+  customerCreateOrder: { name: "Create Order", url: "create-order" },
   customerOrderList: { name: "Orders", url: "orders" },
   customerOrderDetail: { name: "Order Detail", url: "orders/:id" },
   customerSetting: { name: "Setting", url: "setting" },

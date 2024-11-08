@@ -33,7 +33,21 @@ const getTotal = async (req, res, next) => {
   }
 };
 
+const findById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await RestaurantService.findById(id);
+    res.status(200).json({
+      message: "Find restaurant by id successfully",
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getMostPopular,
   getTotal,
+  findById,
 };

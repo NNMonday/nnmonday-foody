@@ -16,7 +16,16 @@ const getTotal = async () => {
   }
 };
 
+const findById = async (id) => {
+  try {
+    return await RestaurantRepository.findById(id);
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getMostPopular,
   getTotal,
+  findById,
 };

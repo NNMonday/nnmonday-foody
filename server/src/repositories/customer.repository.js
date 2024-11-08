@@ -46,10 +46,25 @@ const findCartById = async (_id) => {
   }
 };
 
+const findAllAddressByUserId = async (user_id) => {
+  const { addresses } = await Customer.findOne({ user_id })
+    .populate("addresses.city_id addresses.district_id addresses.ward_id")
+    .select("addresses")
+    .exec();
+
+  return addresses;
+};
+
+const findByUserId = async (user_id) => {
+  return await Customer.findOne({ user_id });
+};
+
 module.exports = {
   create,
   getCart,
   getTotal,
   updateCart,
   findCartById,
+  findAllAddressByUserId,
+  findByUserId,
 };

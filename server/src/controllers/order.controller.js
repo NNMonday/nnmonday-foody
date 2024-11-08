@@ -12,6 +12,27 @@ const getTotalDelivered = async (req, res, next) => {
   }
 };
 
+const create = async (req, res, next) => {
+  try {
+    const { address, dishes, restaurant_id, note } = req.body;
+    const { _id } = req.decodedToken;
+    const newOrder = await OrderService.create({
+      address,
+      dishes,
+      user_id: _id,
+      restaurant_id,
+      note,
+    });
+    res.status(201).json({
+      message: "Create order successfully",
+      data: newOrder,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getTotalDelivered,
+  create,
 };

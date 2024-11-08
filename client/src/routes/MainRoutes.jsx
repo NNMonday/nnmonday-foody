@@ -31,6 +31,7 @@ const CustomerDashboard = lazy(() => import("../pages/customer/Dashboard"));
 const CustomerSetting = lazy(() => import("../pages/customer/Setting"));
 const CustomerOrderList = lazy(() => import("../pages/customer/OrderList"));
 const CustomerOrderDetail = lazy(() => import("../pages/customer/OrderDetail"));
+const CustomerCreateOrder = lazy(() => import("../pages/customer/CreateOrder"));
 
 //Restaurant Pages
 const RestaurantDashboard = lazy(() => import("../pages/restaurant/Dashboard"));
@@ -154,6 +155,10 @@ export default function MainRoutes() {
         {
           path: paths.customerSetting.url,
           element: <CustomerSetting />,
+        },
+        {
+          path: paths.customerCreateOrder.url,
+          element: <CustomerCreateOrder />,
         },
         {
           path: paths.customerOrderList.url,

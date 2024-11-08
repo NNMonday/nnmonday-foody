@@ -8,6 +8,24 @@ async function getTotalDelivered() {
   return totalDeliveredOrders;
 }
 
+const create = async ({
+  address,
+  dishes,
+  customer_id,
+  restaurant_id,
+  note,
+}) => {
+  const newOrder = Order({
+    address,
+    dishes,
+    customer_id,
+    restaurant_id,
+    note,
+  });
+  return await newOrder.save();
+};
+
 module.exports = {
   getTotalDelivered,
+  create,
 };

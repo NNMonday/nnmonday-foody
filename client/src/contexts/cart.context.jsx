@@ -22,7 +22,6 @@ export default function CartProvider({ children }) {
     try {
       setLoading(true);
       const res = await AxiosInstance.get("/api/customers/cart");
-      console.log(res.data);
 
       setCart(res.data.data);
     } catch (error) {
@@ -37,15 +36,12 @@ export default function CartProvider({ children }) {
         dish_id: i.dish_id,
         quantity: i.quantity,
       }));
-      console.log(updatedCart);
 
       const res = await AxiosInstance.post("/api/customers/cart", {
         newCart: updatedCart,
       });
 
-      console.log(res.data);
-
-      toastSuccess(res.data.message);
+      newCart.length !== 0 && toastSuccess("Cart updated successfully");
       setCart(res.data.data);
     } catch (error) {}
   }, []);

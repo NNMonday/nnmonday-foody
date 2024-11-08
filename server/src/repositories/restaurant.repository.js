@@ -76,9 +76,14 @@ const findByLocation = async (locationFilter) => {
   return await Restaurant.find(locationFilter, "_id");
 };
 
+const findById = async (id) => {
+  return await Restaurant.findById(id).populate("user_id").exec();
+};
+
 module.exports = {
   create,
   getMostPopular,
   getTotal,
   findByLocation,
+  findById,
 };
