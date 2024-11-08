@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navbar .active {
+  background-color: #f68713;
+  color: white;
+}
+
+.total-data .total-data-item:not(:last-child) {
+  border-right: 2px solid rgb(170, 168, 168);
+}
